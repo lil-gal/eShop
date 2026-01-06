@@ -1,0 +1,58 @@
+[
+    {
+        "id": 1,
+        "name": "Monster Ultra Zero",
+        "cost": 2.09,
+        "imageLink": "https://web-assests.monsterenergy.com/mnst/5587a01b-3c83-42f7-a741-b29a1d534409.webp",
+        "category": "Ultra",
+        "description": "The OG of zero-sugar energy drinks. Zero Ultra delivers light, refreshing flavor and low-calorie energy—zero sugar, full Monster. It’s the white can that started it all."
+    },
+    {
+        "id": 2,
+        "name": "Monster Ultra Paradise",
+        "cost": 2.15,
+        "imageLink": "https://web-assests.monsterenergy.com/mnst/bc17ca83-d4e3-4c5d-a8ad-414bc3e1b2d8.webp",
+        "category": "Ultra",
+        "description": "Ultra Paradise delivers island flavors of kiwi, lime, and cucumber with zero sugar. This crisp, tropical energy escape is powered by the Monster Energy blend."
+    },
+    {
+        "id": 3,
+        "name": "Juice Monster Mango Loco",
+        "cost": 2.05,
+        "imageLink": "https://web-assests.monsterenergy.com/mnst/bcbf7fc0-05e9-4d0d-933c-30eabf9ca620.webp",
+        "category": "Juice",
+        "description": "Celebrate the dead, fuel the living. Mango Loco blends juicy mango with real fruit juice and the Monster Energy blend for a fiesta in a can—sweet, vibrant, and built to keep the party going."
+    },
+    {
+        "id": 4,
+        "name": "Monster Ultra Wild Passion",
+        "cost": 2.30,
+        "imageLink": "https://web-assests.monsterenergy.com/mnst/a407f89f-e37a-4479-af44-6ea877acb47f.webp",
+        "category": "Ultra",
+        "description": "Sweet and tart passionfruit with a citrus twist. This zero-sugar, low-calorie energy drink is bright, bold, and powered by the Monster Energy signature blend."
+    },
+    {
+        "id": 5,
+        "name": "Monster Original Green",
+        "cost": 1.90,
+        "imageLink": "https://web-assests.monsterenergy.com/mnst/86be6554-4e12-435b-b8d0-bc492e68e436.webp",
+        "category": "Classic",
+        "description": "Tear into a can of the meanest energy drink on the planet—Monster Energy. It packs a powerful punch but goes down smooth with its easy-drinking flavor. It’s the ideal combo of the right ingredients in the right proportions to deliver the big bad buzz only Monster can. Unleash the Beast!"
+    },
+    {
+        "id": 6,
+        "name": "Juice Monster Bad Apple",
+        "cost": 2.69,
+        "imageLink": "https://web-assests.monsterenergy.com/mnst/8ed0cc51-5dc9-4648-8c20-600ab30fc83e.webp",
+        "category": "Juice",
+        "description": "Sinfully smooth, dangerously crisp. Bad Apple delivers Fuji apple flavor with real juice and the Monster Energy blend. This isn’t your grandma’s apple juice."
+    },
+    {
+        "id": 7,
+        "name": "Monster Ultra Peachy Keen",
+        "cost": 2.19,
+        "imageLink": "https://web-assests.monsterenergy.com/mnst/38a1d9c7-b926-41a6-a0cd-5020b83da8e9.webp",
+        "category": "Ultra",
+        "description": "Juicy peach flavor with zero sugar and low calories. Ultra Peachy Keen delivers a sweet, smooth, and refreshing energy punch with the Monster Energy blend for a delicious boost."
+    }
+]
