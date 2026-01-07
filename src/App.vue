@@ -3,20 +3,21 @@
   <!DOCTYPE html>
   
   <div class="header">
-    <div @click="show_menu = true" class="cartIcon">
+    <div @click="show_menu = true" class="menu">
       <i class="pi pi-bars icon"></i>
     </div>
     <div class="headerName">
       Monsterr
     </div>
-    <div @click="show_cart = true" class="menu">
+    <div @click="show_cart = true" class="cartIcon">
       <i class="pi pi-shopping-cart icon"></i>
+      <div class="cartNum">{{ cartItemsNumber }}</div>
     </div>
   </div>
 
   <div class="items">
     <Products v-for="(product, index) in visibleProducts" :key="index" :product="product" 
-      @addToCart="addToCart(product)"\
+      @addToCart="addToCart(product)"
     />
   </div>
 
@@ -116,6 +117,17 @@ const visibleCartData = computed(() => {
 function getCategories() {
   return [...new Set(products.map(item => item.category))];
 }
+
+
+const cartItemsNumber = computed(() => {
+  let num = 0;
+  visibleCartData.value.forEach(item => {
+    num += item.count
+  });
+  if(num == 0){num =""}
+  if(num >= 100){num="99+"}
+  return num
+})
 
 
 const searchFilter = ref("");
@@ -280,6 +292,19 @@ li{
 .costFilterRow > input{
   margin: 0px 2px;
   width: 20%;
+}
+
+.cartIcon{
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+}
+
+.cartNum{
+  background-color: red;
+  border-radius: 12px;
+
+  padding: 0px 4px;
 }
 
 
