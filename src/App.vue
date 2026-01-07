@@ -30,7 +30,7 @@
       </li>
     </ul>
 
-    <div class="buyButton button">
+    <div class="buyButton button" @click="buy()">
       Buy for {{ totalCartCost }}€
     </div>
   </Drawer>
@@ -116,6 +116,10 @@ const visibleCartData = computed(() => {
 
 function getCategories() {
   return [...new Set(products.map(item => item.category))];
+}
+
+function buy(){
+  window.alert("Thanks for shopping with us");
 }
 
 
