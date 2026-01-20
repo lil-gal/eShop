@@ -14,13 +14,61 @@
       <div class="cartNum">{{ cartItemsNumber }}</div>
     </div>
   </div>
-
+<!-- body -->
+  <!-- items -->
   <div class="items">
     <Products v-for="(product, index) in visibleProducts" :key="index" :product="product" 
       @addToCart="addToCart(product)"
     />
+    <div class="center">
+      <i class="pi pi-plus icon button" @click="show_addproduct = true"></i>
+    </div>
   </div>
 
+  
+
+  <!-- form -->
+  <Dialog v-model:visible="show_addproduct" header="Add Product" modal style="min-width: 400px;">
+    <div id="addproduct">
+        <label>Product Name </label>
+        <input type="text" id="addproduct_title">
+        
+        <br>
+
+        
+        <label>Price </label>
+        <input type="text" id="addproduct_price"> 
+
+        <br>
+        <br>
+        
+        <label>Description </label>
+        <textarea id="addproduct_desc"></textarea> 
+
+        <br>
+        <br>
+
+        <label>image url</label>
+        <input type="text" id="addproduct_imgsrc">    
+
+        <br>
+        <br>
+
+        <label>Category </label>
+        <input type="text" id="addproduct_category"> 
+
+        <br>
+        <br>
+
+        <span id="form_errors"></span>
+
+        <br>
+
+        <button @click="sendForm">Add product</button>
+    </div>
+  </Dialog>
+
+<!-- drawers -->
   <Drawer v-model:visible="show_cart" id="cartPopup" header="Cart" position="right">
 
     <ul class="cartItems">
@@ -87,10 +135,33 @@
 
 
 <script setup>
-import {ref, computed} from 'vue'
-import products from './products.json'
+import {ref, computed, onMounted} from 'vue'
+
+
+const api_url = "http://localhost:3000/"
+const products = ref([])
+
+onMounted(async () => {
+    await refreshList()
+})
+
+const refreshList = (async () => {
+  const res = await fetch(api_url+"products");
+  const data = await res.json();
+
+  products.value = data
+
+  console.log("refresh", data)
+})
+
+
+
+
+
+
 import Products from './components/products.vue'
 import Drawer from 'primevue/drawer';
+import Dialog from 'primevue/dialog';
 
 //import cartData from './cart.json'
 import Cart from './components/cart.vue'
@@ -114,9 +185,7 @@ const visibleCartData = computed(() => {
   return Object.values(map);
 });
 
-function getCategories() {
-  return [...new Set(products.map(item => item.category))];
-}
+
 
 function buy(){
   window.alert("Thanks for shopping with us");
@@ -136,10 +205,13 @@ const cartItemsNumber = computed(() => {
 
 const searchFilter = ref("");
 const costFilter = ref([0,100]);
-const categoryFilter = ref([]);
+const categoryFilter = computed(() => {
+  return [...new Set(products.value.map(item => item.category))];
+})
 
-const categories = getCategories()
-categoryFilter.value = getCategories()
+const categories = computed(() => {
+  return [...new Set(products.value.map(item => item.category))];
+})
 
 const visibleProducts = computed(() => {
   const result = []
@@ -148,10 +220,11 @@ const visibleProducts = computed(() => {
   const max = costFilter.value[1]
   
 
-  products.forEach(item => {
+  products.value.forEach(item => {
     if (search && !item.name.toLowerCase().includes(search)) {return;}
-
+    
     if(item.cost < min || item.cost > max){return;}
+    
 
     if (!categoryFilter.value.includes(item.category)){return;}
     
@@ -190,6 +263,56 @@ const totalCartCost = computed(() =>{
 })
 
 
+
+const show_addproduct = ref(false)
+
+let form_ids = [
+  {matches:"name",id:"addproduct_title",type:"string"},
+  {matches:"cost",id:"addproduct_price",type:"float"},
+  {matches:"description",id:"addproduct_desc",type:"string"},
+  {matches:"imageLink",id:"addproduct_imgsrc",type:"string"},
+  {matches:"category",id:"addproduct_category",type:"string"}
+]
+    
+let sendForm = async () => {
+  let new_product = {};
+  const error_el = document.getElementById("form_errors");
+  error_el.innerText = ""
+  
+  new_product["id"] = products.value.length +1
+  
+  form_ids.forEach(val=>{
+      const element = document.getElementById(val.id)
+      let value = element.value
+      if (val.type == "string") {
+      } else if (val.type == "float") {
+          value = Number(value);
+          if (isNaN(value)) error_el.innerText += "Must be a number\n"
+      } else if (val.type == "int") {
+          value = Math.round(Number(value));
+          if (isNaN(value)) error_el.innerText += "Must be a number\n"
+      }
+      new_product[val.matches] = value
+  })
+  console.log(new_product)
+  if (!error_el.innerText){
+    show_addproduct.value = false;
+
+    await fetch(api_url+"products",{
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify(new_product)
+    });
+
+    await fetch(api_url+"products")
+    //await refreshList();
+  }
+  
+}
+
+
+
+
 </script>
 
 
@@ -205,6 +328,12 @@ html, body, #app{
 
 li{
   list-style-type: none;
+}
+
+.center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .header{
