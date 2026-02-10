@@ -18,7 +18,7 @@
   <!-- items -->
   <div class="items">
     <Products v-for="(product, index) in visibleProducts" :key="index" :product="product" 
-      @addToCart="addToCart(product)"
+      @addToCart="addToCart(product)" @trash="deleteProduct(product)"
     />
     <div class="center">
       <i class="pi pi-plus icon button" @click="show_addproduct = true"></i>
@@ -146,7 +146,8 @@ onMounted(async () => {
 })
 
 const refreshList = (async () => {
-  const res = await fetch(api_url+"products");
+  const res = await fetch(api_url+"products?category=Ultra");
+  //const res2 = await fetch(api_url+"products/1");
   const data = await res.json();
 
   products.value = data
@@ -309,6 +310,15 @@ let sendForm = async () => {
   }
   
 }
+
+
+let getID = (id) => {
+  fetch(api_url+"products/"+id,{
+    method: "GET",
+    headers: {"Content-Type":"application/json"}
+  })
+}
+
 
 
 

@@ -28,9 +28,16 @@
                     {{cost}}
                 </div>
                 
-                <!-- btn -->
-                <div @click="addToCart($event)" class="toCart button">
-                    Add to Cart
+                <!-- btns -->
+                <div class="btns">
+                    <!-- btn -->
+                    <div @click="addToCart($event)" class="toCart button">
+                        Add to Cart
+                    </div>
+                    <!-- trash -->
+                    <div @click="trash($event)" class="trash button">
+                        X
+                    </div>
                 </div>
             </div>
 
@@ -44,7 +51,7 @@
     import {computed} from 'vue'
 
     const props = defineProps(['product'])
-    const emit = defineEmits(['addToCart'])
+    const emit = defineEmits(['addToCart', 'trash'])
 
 
     
@@ -70,8 +77,9 @@
         emit('addToCart')
     }
 
-    function openItemDesc(){
-
+    function trash(event){
+        event.stopPropagation();
+        emit('trash')
     }
 
     
@@ -80,6 +88,24 @@
 </script>
 
 <style scoped>
+
+.btns{
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    gap: 12px;
+}
+
+.trash{
+    padding: 4px 6px;
+    color: white;
+    background-color: red;
+
+    border-radius: 12px;
+
+    font-size: 20px;
+}
 
 .item > div{
     display: flex;
@@ -144,6 +170,8 @@ img{
 
     background-color: palevioletred;
     border-radius: 20px;
+
+    font-size: 12px;
     
 }
 
